@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Bookmark</title>
+    <link rel="stylesheet" type="text/css" href="/bootstrap.min.css">
+    <style>
+        .span {
+            font-size: 10px;
+        }
+        small {
+            margin-left: 0.5em;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">My bookmark</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/">Home</a></li>
+                    <% if(user) {%>
+                        <li><a href="/newBookmark" >New Bookmark</a></li>
+                        <li><a href="/logout" >Logout</a></li>
+                    <% } else { %>
+                        <li><a href="/regist" >Sign In</a></li>
+                        <li><a href="/login" >Log In</a></li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+
+        <ul>
+            <% for (var i = 0; i < bookmarks.length; i++) { %>
+            <li>
+                <h1>
+                    <a href="<%= bookmarks[i].link %>"><%= bookmarks[i].title %></a>
+                    <% if (bookmarks[i].private == false) { %>
+                    <span class="label label-warning span">Public</span>
+                    <% } else { %>
+                    <span class="label label-success span">Private</span>
+                    <% } %>
+                    <small>Create by <%= bookmarks[i].user.username %></small>
+                </h1>
+                <% if(bookmarks[i].private == true || bookmarks[i].owner == (user ? user.id : null) ) { %>
+                <a href="/bookmark/<%= bookmarks[i].id %>" class="btn btn-success">Edit</a>
+                <a href="/delete/<%= bookmarks[i].id %>" class="btn btn-danger">Delete</a>
+                <% } %>
+            </li>
+            <% } %>
+        </ul>
+    </div>
+</body>
+</html>
