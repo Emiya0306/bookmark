@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <title>My Bookmark</title>
     <link rel="stylesheet" type="text/css" href="/newBookmark.css">
-    <link rel="stylesheet" type="text/css" href="/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js'></script>
 </head>
 <body>
     <nav class="navbar navbar-default">
@@ -26,28 +28,51 @@
         </div>
     </nav>
     <div class="container">
-        <form action="/newBookmark" method="post">
-            <div class="form-group">
+        <form action="/newBookmark" method="post" onsubmit="return checkForm()">
+            <div class="form-group has-feedback">
                 <label for="title">title:</label>
                 <input class="form-control" id="title" name="title" type="text" />
+                <span class="glyphicon glyphicon-ok-sign form-control-feedback" aria-hidden="true"></span>
+                <span id="inputSuccess2Status" class="sr-only">(success)</span>
             </div>
-            <div class="form-group">
+            <div class="form-group has-feedback">
                 <label for="link">link:</label>
-                <input class="form-control" id="link" name="link" type="text" />
+                <input class="form-control" id="link" name="link" type="text" onblur="checkLink()" />
             </div>
-            <div class="form-group">
+            <div class="form-group has-feedback">
                 <label for="private">private:</label>
                 <input class="form-control" id="private" type="checkbox" onclick="check()" />
             </div>
-            <input id="private_check" class="hidden" name="private" />
+            <input id="private_check" class="hidden" name="private" value="false" />
             <button type="submit">Add</button>
             <input name="owner" type="text" id="owner" class="hidden" value="<%= user.id %>" />
         </form>
     </div>
     <script>
+        function checkLink() {
+            var linkText = $('#link')[0].value;
+            var linkWarning = $('#linkWarning');
+            var result = (/(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?/).test(linkText);
+            if (!result) {
+                linkWarning.removeClass("hidden");
+                linkWarning.removeClass("alert-success");
+                linkWarning.addClass("alert-danger");
+                linkWarning.html("The url link is invalid.");
+            } else {
+                linkWarning.removeClass("hidden");
+                linkWarning.removeClass("alert-danger");
+                linkWarning.addClass("alert-success");
+                linkWarning.html("The url link is OK.");
+            }
+            return result;
+        }
+        function checkForm() {
+            var result = checkLink();
+            return result;
+        }
         function check() {
             var private_check = document.getElementById("private_check");
-            if(private_check.value) {
+            if(private_check.value == "false") {
                 private_check.value = true;
             } else {
                 private_check.value = false;

@@ -18,7 +18,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Bootstrap the application, configure models, datasources and middleware.
 
-boot(app, __dirname);
+var bootOptions = {
+  "appRootDir": __dirname,
+  "bootDirs": [
+    path.join(__dirname, "boot"),
+    path.join(__dirname, "boot", "router")
+  ]
+};
+
+boot(app, bootOptions);
 
 app.set('view engine', 'ejs'); // LoopBack comes with EJS out-of-box
 app.set('json spaces', 2); // format json responses for easier viewing
