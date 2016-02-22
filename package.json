@@ -13,6 +13,7 @@
     "cors": "^2.5.2",
     "express-flash": "0.0.2",
     "express-session": "^1.13.0",
+    "font-awesome": "^4.5.0",
     "helmet": "^0.14.0",
     "loopback": "^2.22.0",
     "loopback-boot": "^2.6.5",
@@ -24,7 +25,6 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "qs": "^6.1.0",
-    "querystring": "^0.2.0",
     "serve-favicon": "^2.0.1"
   },
   "devDependencies": {

@@ -1,139 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/bootstrap.min.css">
-    <script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>
-    <script src="//cdn.bootcss.com/jquery-validate/1.13.1/jquery.validate.min.js"></script>
-    <title>Bookmark - Regist Your Account</title>
-    <style>
-        .red {
-            color: rgb(169, 68 ,66);
-        }
-    </style>
-    <script>
-        $(document).ready(function () {
-            $("#registFrom").validate({
-                errorPlacement: function (error, element) {
-                    if($(error).html()) {
-                        $(error).addClass("red");
-                        $(element)
-                                .parent()
-                                .removeClass("has-success")
-                                .addClass("has-error")
-                                .end()
-                                .siblings('.form-control-feedback').remove()
-                                .end()
-                                .after('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
-                    } else {
-                        $(element).siblings('.error').remove();
-                    }
-                    $(element).parent().parent().append($(error));
-                },
-                errorElement: "span",
-                success: function (element) {
-                    if ($(element).is('.error')) {
-                        $(element)
-                                .siblings('.input-group')
-                                .removeClass("has-error")
-                                .addClass("has-success")
-                                .children(".form-control-feedback")
-                                .remove();
-                        $(element)
-                                .siblings('.input-group')
-                                .append('<span class="glyphicon glyphicon-ok form-control-feedback"></span>')
-                                .end()
-                                .remove();
-                    }
-                },
-                rules: {
-                    username: {
-                        required: true
-                    },
-                    email: {
-                        remote: "/user/check",
-                        required: true,
-                        email: true
-                    },
-                    password: {
-                        required: true,
-                        minlength: 6
-                    },
-                    confirm: {
-                        required: true,
-                        minlength: 6,
-                        equalTo: "#password"
-                    }
-                },
-                messages: {
-                    username: {
-                        required: "Please enter your name."
-                    },
-                    email: {
-                        remote: "The email has been registed.",
-                        required: "Please enter your email.",
-                        email: "Your email is invalid."
-                    },
-                    password: {
-                        required: "Please enter your password.",
-                        minlength: "Password must be 6 words."
-                    },
-                    confirm: {
-                        required: "Please enter your password.",
-                        minlength: "Password must be 6 words.",
-                        equalTo: "Password is not match."
-                    }
-                }
-            });
-        })
-    </script>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/font-awesome.min.css">
+  <script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/jquery-validate/1.13.1/jquery.validate.min.js"></script>
+  <script src="/javascripts/regist.js"></script>
+  <title>Bookmark - Regist Your Account</title>
+  <style>
+    .red {
+      color: rgb(169, 68, 66);
+    }
+  </style>
 </head>
 <body>
+
 <nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/">My bookmark</a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="/">Home</a></li>
-                <li><a href="/login">Log-In</a></li>
-            </ul>
-        </div>
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">My bookmark</a>
     </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/">Home</a></li>
+        <li><a href="/login">Log-In</a></li>
+      </ul>
+    </div>
+  </div>
 </nav>
+
 <div class="container">
-    <form id="registFrom" action="/regist" method="post">
-        <div class="form-group has-feedback">
-            <label for="username">Your name:</label>
-            <div class="input-group">
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-user"></span>
-                </span>
-                <input name="username" type="text" id="username" class="form-control" required>
-            </div>
-        </div>
+  <form id="registFrom" action="/regist" method="post">
 
-        <div class="form-group has-feedback">
-            <label for="email">Email:</label>
-            <div class="input-group">
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-envelope"></span>
-                </span>
-                <input name="email" type="email" id="email" class="form-control" required>
-            </div>
-        </div>
+    <div class="form-group has-feedback">
+      <label for="username">Your name:</label>
+      <div class="input-group">
+        <span class="input-group-addon">
+            <span class="glyphicon glyphicon-user"></span>
+        </span>
+        <input name="username" type="text" id="username" class="form-control" required>
+      </div>
+    </div>
 
-        <div class="form-group has-feedback">
-            <label for="password">Password:</label>
-            <input name="password" type="password" id="password" class="form-control" required>
-        </div>
-        <div class="form-group has-feedback">
-            <label for="confirm">Confirm:</label>
-            <input name="confirm" type="password" id="confirm" class="form-control" required>
-        </div>
-        <button type="submit">regist</button>
-    </form>
+    <div class="form-group has-feedback">
+      <label for="email">Email:</label>
+      <div class="input-group">
+        <span class="input-group-addon">
+            <span class="glyphicon glyphicon-envelope"></span>
+        </span>
+        <input name="email" type="email" id="email" class="form-control" required>
+      </div>
+    </div>
+
+    <div class="form-group has-feedback">
+      <label for="password">Password:</label>
+      <div class="input-group">
+        <span class="input-group-addon">
+            <span class="fa fa-key"></span>
+        </span>
+        <input name="password" type="password" id="password" class="form-control" required>
+      </div>
+    </div>
+
+    <div class="form-group has-feedback">
+      <label for="confirm">Confirm:</label>
+      <div class="input-group">
+        <span class="input-group-addon">
+            <span class="fa fa-key"></span>
+        </span>
+        <input name="confirm" type="password" id="confirm" class="form-control" required>
+      </div>
+    </div>
+
+    <button type="submit">regist</button>
+  </form>
 </div>
 
 </body>
