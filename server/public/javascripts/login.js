@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  $("#registFrom").validate({
+  $("#loginFrom").validate({
     errorPlacement: function (error, element) {
       if ($(error).html()) {
         $(error).addClass("red");
@@ -35,41 +35,23 @@ $(document).ready(function () {
       }
     },
     rules: {
-      username: {
-        required: true
-      },
       email: {
-        remote: "/user/check",
         required: true,
         email: true
       },
       password: {
         required: true,
         minlength: 6
-      },
-      confirm: {
-        required: true,
-        minlength: 6,
-        equalTo: "#password"
       }
     },
     messages: {
-      username: {
-        required: "Please enter your name."
-      },
       email: {
-        remote: "The email has been registed.",
         required: "Please enter your email.",
         email: "Your email is invalid."
       },
       password: {
         required: "Please enter your password.",
         minlength: "Password must be 6 words."
-      },
-      confirm: {
-        required: "Please enter your password.",
-        minlength: "Password must be 6 words.",
-        equalTo: "Password is not match."
       }
     }
   });
