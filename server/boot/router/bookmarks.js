@@ -15,21 +15,29 @@ module.exports = Bookmarks;
 /**
  * Bookmarks App
  *
- * @param server
+ * @param app
  * @constructor
  * @public
  */
-function Bookmarks(Router) {
+function Bookmarks(app) {
 
-    Router.get('/newBookmark', function (req, res) {
-        if (req.user) {
-            res.render('newBookmark', {user: req.user});
-        } else {
+    var router = app.loopback.Router();
+    var User = app.models.User;
+    var Bookmark = app.models.bookmark;
+
+    // check authenticate
+    router.all(function (req, res, next) {
+        if (req.user === undefined) {  // if user are login, the req.user is undefined
             res.redirect('/login');
         }
+        next();
     });
 
-    Router.post('/newBookmark', function (req, res) {
+    router.get('/newBookmark', function (req, res) {
+        res.render('newBookmark', {user: req.user});
+    });
+
+    router.post('/newBookmark', function (req, res) {
         User.findById(req.user.id, function (err, user) {
             if (err) {
                 console.log(err);
@@ -45,33 +53,27 @@ function Bookmarks(Router) {
         });
     });
 
-    Router.get('/bookmark/:id', function (req, res) {
-        if (req.user) {
-            Bookmark.findById(req.params.id, function (err, bookmark) {
-                res.render('bookmark', {bookmark: bookmark, user: req.user});
-            });
-        } else {
-            res.redirect('/login');
-        }
+    router.get('/bookmark/:id', function (req, res) {
+        Bookmark.findById(req.params.id, function (err, bookmark) {
+            res.render('bookmark', {bookmark: bookmark, user: req.user});
+        });
     });
 
-    Router.post('/bookmarks', function (req, res) {
-        if (req.user) {
-            Bookmark.upsert(req.body, function (err, result) {
-                res.redirect('/');
-            });
-        } else {
-            res.redirect('/login');
-        }
+    router.post('/bookmarks', function (req, res) {
+        Bookmark.upsert(req.body, function (err, result) {
+            res.redirect('/');
+        });
     });
 
-    Router.get('/delete/:id', function (req, res) {
+    router.get('/delete/:id', function (req, res) {
         Bookmark.destroyById(req.params.id, function (err) {
             Bookmark.find({where: {or: [{owner: req.user ? req.user.id : null}, {private: false}]}}, function (err, bookmark) {
                 res.redirect('/');
             });
         });
     });
+
+    app.use(router);
 
 }
 
