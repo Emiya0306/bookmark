@@ -14,23 +14,42 @@ module.exports = function (app) {
     // get home page
     router.get('/', function (req, res) {
 
-        var query = req.user ? {or: [{owner: req.user.id}, {private: false}]} : { private: false};
+        var PublicBookmarks = {or: [{ owner: req.user ? req.user.id : null }, {private: false}]};
+        var UserBookmarks = { private: false };
 
-        Bookmark.find({
-            include: {
-                relation: 'user',
-                scope: {
-                    fields: ['email', 'username']
-                }
-            }, where: query
-        }, function (err, results) {
-            // results has package some methods. We need to change it into json object.
-            var bookmarks = [];
-            results.map(function(result){
-                bookmarks.push(result.toJSON());
+        var query = req.user ? PublicBookmarks : UserBookmarks ;
+
+        Bookmark.getBookmarks(query)
+            .then(function(results) {
+                // results has package some methods. We need to change it into json object.
+                var bookmarks = [];
+                results.map(function (result) {
+                    bookmarks.push(result.toJSON());
+                });
+                res.render('home', {bookmarks: bookmarks, user: req.user});
+            })
+            .catch(function(err) {
+                res.render("error", {error: err})
             });
-            res.render('home', {bookmarks: bookmarks, user: req.user});
-        });
+
+        //if(req.user) {
+        //    Bookmark.getUserViewBookmarks()
+        //        .then(function(bookmarks) {
+        //            res.render('home', {bookmarks: bookmarks, user: req.user});
+        //        })
+        //        .catch(function() {
+        //
+        //        })
+        //} else {
+        //    Bookmark.getPublicViewBookmarks()
+        //        .then(function(bookmarks) {
+        //            res.render('home', {bookmarks: bookmarks, user: req.user});
+        //        })
+        //        .catch(function() {
+        //
+        //        })
+        //}
+
     });
 
     app.use(router);

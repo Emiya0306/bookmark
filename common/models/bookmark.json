@@ -21,6 +21,10 @@
     "owner": {
       "type": "string",
       "required": true
+    },
+    "createTime": {
+      "type": "date",
+      "required": true
     }
   },
   "validations": [],

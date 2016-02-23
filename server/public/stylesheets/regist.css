@@ -1,0 +1,29 @@
+.avatar {
+    display: block;
+    position: relative;
+    height: 230px;
+}
+
+.avatar > label {
+    display: block;
+}
+
+.avatar > .uploader {
+    position: relative;
+    float: left;
+}
+
+.avatar > .uploader {
+    position: relative;
+    float: left;
+}
+
+.avatar_view {
+    float: left;
+    margin: 0 20px;
+}
+
+.avatar_view > img {
+    width: 200px;
+    height: 200px;
+}

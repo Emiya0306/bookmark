@@ -4,16 +4,12 @@
     <meta charset="UTF-8">
     <title>My Bookmark</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css">
-    <style>
-        .span {
-            font-size: 10px;
-        }
-        small {
-            margin-left: 0.5em;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/home.css">
+    <script src="//cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+    <script src="/javascripts/home.js"></script>
 </head>
 <body>
+
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -33,13 +29,14 @@
             </div>
         </div>
     </nav>
-    <div class="container">
 
+
+    <div class="container">
         <ul>
             <% for (var i = 0; i < bookmarks.length; i++) { %>
-            <li>
+            <li class="bookmark">
                 <h1>
-                    <a href="<%= bookmarks[i].link %>"><%= bookmarks[i].title %></a>
+                    <a href="<%= bookmarks[i].link %>" target="_blank"><%= bookmarks[i].title %></a>
                     <% if (bookmarks[i].private == false) { %>
                     <span class="label label-warning span">Public</span>
                     <% } else { %>
@@ -48,12 +45,36 @@
                     <small>Create by <%= bookmarks[i].user.username %></small>
                 </h1>
                 <% if(bookmarks[i].private == true || bookmarks[i].owner == (user ? user.id : null) ) { %>
-                <a href="/bookmark/<%= bookmarks[i].id %>" class="btn btn-success">Edit</a>
-                <a href="/delete/<%= bookmarks[i].id %>" class="btn btn-danger">Delete</a>
+                <a class="btn btn-danger option" data-toggle="modal" data-target="#confirm" onclick="bookmarkConfirm(event)">Delete</a>
+                <a href="/bookmark/<%= bookmarks[i].id %>" class="btn btn-success option">Edit</a>
+                <input class="hidden" value="<%= bookmarks[i].id %>" />
                 <% } %>
             </li>
             <% } %>
         </ul>
+
+        <!-- Modal -->
+        <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Warning!</h4>
+                    </div>
+                    <div class="modal-body">
+                        Hey, <%= (user ? user.username : null) %>! Are you sure to delete the <b id="confirm_window_name"></b> bookmark?
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-default" data-dismiss="modal">Close</a>
+                        <a href="/" class="btn btn-danger" onclick="confirmDelete()">Delete</a>
+                        <input id="deleteBookmarkID" class="hidden" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
+
+    <script src="/javascripts/bootstrap.min.js"></script>
 </body>
 </html>

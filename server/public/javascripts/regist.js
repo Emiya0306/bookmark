@@ -73,4 +73,27 @@ $(document).ready(function () {
       }
     }
   });
-})
+  $("#drag-and-drop-zone").dmUploader({
+    maxFiles: 1,
+    onNewFile: function(id, file){
+
+      /*** Begins Image preview loader ***/
+      if (typeof FileReader !== "undefined"){
+
+        var reader = new FileReader();
+
+        var img = $('#demo-files').find("img");
+
+        reader.onload = function (e) {
+          img.attr('src', e.target.result);
+        };
+
+        reader.readAsDataURL(file);
+      } else {
+        // Hide/Remove all Images if FileReader isn't supported
+        $('#demo-files').find('.demo-image-preview').remove();
+      }
+
+    }
+  });
+});

@@ -1,0 +1,32 @@
+.span {
+    font-size: 10px;
+}
+small {
+    margin-left: 0.5em;
+}
+
+.bookmark {
+    display: block;
+    padding: 25px 0;
+    position: relative;
+}
+
+.bookmark:not(:last-child) {
+    border-bottom: 1px solid gray;
+}
+
+.bookmark > h1 {
+    display: inline;
+    width: 50%;
+    margin: 0;
+}
+
+.bookmark > a {
+    position: relative;
+    float: right;
+    margin: 0 10px;
+}
+
+.option {
+
+}

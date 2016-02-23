@@ -51,7 +51,7 @@ $(document).ready(function () {
       },
       link: {
         required: "Please enter your link.",
-        url: "The link is invalid."
+        url: 'The link is invalid.You need to enter the link just like "http://", "https://".'
       }
     }
   });

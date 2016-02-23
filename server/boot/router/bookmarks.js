@@ -43,6 +43,7 @@ function Bookmarks(app) {
                 console.log(err);
                 res.redirect('/');
             } else {
+                req.body.createTime = Date.now();
                 user.bookmarks.create(req.body, function (err, result) {
                     if (err) {
                         console.log(err);
