@@ -33,7 +33,7 @@
 </nav>
 
 <div class="container">
-    <form id="newBookmark" action="/newBookmark" method="post">
+    <form id="newBookmark" action="/bookmark" method="post">
 
         <div class="form-group has-feedback">
             <label for="title">Title:</label>
@@ -61,6 +61,7 @@
         </div>
 
         <input id="private_check" class="hidden" name="private" value="<%= bookmark.private %>" />
+        <input class="hidden" name="id" value="<%= bookmark.id %>" />
         <button class="btn btn-default" type="submit">Save</button>
         <input name="owner" type="text" id="owner" class="hidden" value="<%= user.id %>"/>
     </form>
@@ -68,11 +69,11 @@
 
 <script>
     function check() {
-        var private_check = document.getElementById("private_check");
-        if(private_check.value == "false") {
-            private_check.value = true;
+        var private_check = $("#private_check");
+        if(private_check.val() == "false") {
+            private_check.val(true);
         } else {
-            private_check.value = false;
+            private_check.val(false);
         }
     }
 </script>
