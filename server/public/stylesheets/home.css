@@ -1,32 +1,39 @@
-.span {
-    font-size: 10px;
-}
-small {
-    margin-left: 0.5em;
+.bookmark {
+  padding: 15px 0;
 }
 
-.bookmark {
-    display: block;
-    padding: 25px 0;
-    position: relative;
+.bookmark > * {
+  font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
+
+.bookmark > header {
+  clear: both;
+}
+
+.bookmark > header > .author:before {
+  content: "| ";
 }
 
 .bookmark:not(:last-child) {
-    border-bottom: 1px solid gray;
+  border-bottom: 1px solid gray; /* */
 }
 
-.bookmark > h1 {
-    display: inline;
-    width: 50%;
-    margin: 0;
+.bookmark > .link {
+  padding: 10px 0; /* The padding of link title.*/
+  float: left;
 }
 
-.bookmark > a {
-    position: relative;
-    float: right;
-    margin: 0 10px;
+.bookmark > .link > a {
+  font-size: 30px;
+  margin-right: 10px; /* The margin between title and label.*/
 }
 
-.option {
-
+.bookmark > .actions {
+  padding: 15px 0; /* The padding of link title.*/
+  float: right;
 }
+
+.bookmark > footer >  {
+  clear: both;
+}
+

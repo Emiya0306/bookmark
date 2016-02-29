@@ -3,7 +3,11 @@ function bookmarkConfirm(event) {
 }
 
 function confirmDelete(event) {
-    $.get("/delete/" + $("#deleteBookmarkID").val(), function() {
-
-    });
+    //$.get("/bookmarks/" + $("#deleteBookmarkID").val(), function() {
+    //
+    //});
+  $.ajax({
+    url: "/bookmarks/" + $("#deleteBookmarkID").val(),
+    type: 'DELETE'
+  })
 }

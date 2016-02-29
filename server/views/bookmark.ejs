@@ -22,7 +22,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/">Home</a></li>
                 <% if(user) { %>
-                <li><a href="/newBookmark">New Bookmark</a></li>
+                <li><a href="/bookmarks/new">New Bookmark</a></li>
                 <li><a href="/logout">Logout</a></li>
                 <% } else { %>
                 <li><a href="/login">Login</a></li>
@@ -33,7 +33,7 @@
 </nav>
 
 <div class="container">
-    <form id="newBookmark" action="/bookmark" method="post">
+    <form id="newBookmark" action="/bookmarks/<%= bookmark.id %>" method="post">
 
         <div class="form-group has-feedback">
             <label for="title">Title:</label>
@@ -61,7 +61,6 @@
         </div>
 
         <input id="private_check" class="hidden" name="private" value="<%= bookmark.private %>" />
-        <input class="hidden" name="id" value="<%= bookmark.id %>" />
         <button class="btn btn-default" type="submit">Save</button>
         <input name="owner" type="text" id="owner" class="hidden" value="<%= user.id %>"/>
     </form>

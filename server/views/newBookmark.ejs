@@ -22,7 +22,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a href="/">Home</a></li>
         <% if(user) { %>
-        <li><a href="/newBookmark">New Bookmark</a></li>
+        <li><a href="/bookmarks/new">New Bookmark</a></li>
         <li><a href="/logout">Logout</a></li>
         <% } else { %>
         <li><a href="/login">Login</a></li>
@@ -33,7 +33,7 @@
 </nav>
 
 <div class="container">
-  <form id="newBookmark" action="/newBookmark" method="post">
+  <form id="newBookmark" action="/bookmarks" method="post">
 
     <div class="form-group has-feedback">
       <label for="title">Title:</label>

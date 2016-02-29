@@ -10,43 +10,68 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="/">My bookmark</a>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/">Home</a></li>
-                    <% if(user) {%>
-                        <li><a href="/newBookmark" >New Bookmark</a></li>
-                        <li><a href="/logout" >Logout</a></li>
-                    <% } else { %>
-                        <li><a href="/regist" >Sign In</a></li>
-                        <li><a href="/login" >Log In</a></li>
-                    <% } %>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">My bookmark</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/">Home</a></li>
+        <% if(user) { %>
+        <li><a href="/bookmarks/new">New Bookmark</a></li>
+        <li><a href="/logout">Logout</a></li>
+        <% } else { %>
+        <li><a href="/login">Login</a></li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>
 
+
+
+    <!--<main class="container">-->
+
+      <!--<article>-->
+
+        <!--<a href="">-->
+          <!--Google-->
+          <!--<span class="label">private</span>-->
+        <!--</a>-->
+
+        <!--<section class="actions">-->
+          <!--<button></button>-->
+          <!--<a class="btn " href=""></a>-->
+        <!--</section>-->
+
+      <!--</article>-->
+
+
+    <!--</main>-->
+
+<!--Container of -->
 
     <div class="container">
+
+
+
+
         <ul>
             <% for (var i = 0; i < bookmarks.length; i++) { %>
             <li class="bookmark">
-                <h1>
+              <p>
                     <a href="<%= bookmarks[i].link %>" target="_blank"><%= bookmarks[i].title %></a>
                     <% if (bookmarks[i].private == false) { %>
                     <span class="label label-warning span">Public</span>
                     <% } else { %>
                     <span class="label label-success span">Private</span>
                     <% } %>
-                    <small>Create by <%= bookmarks[i].user.username %></small>
-                </h1>
+              </p>
+              <span class="small">Created by <%= bookmarks[i].user.username %></span>
                 <% if(bookmarks[i].private == true || bookmarks[i].owner == (user ? user.id : null) ) { %>
                 <a class="btn btn-danger option" data-toggle="modal" data-target="#confirm" onclick="bookmarkConfirm(event)">Delete</a>
-                <a href="/bookmark/<%= bookmarks[i].id %>" class="btn btn-success option">Edit</a>
+                <a href="/bookmarks/<%= bookmarks[i].id %>/edit" class="btn btn-success option">Edit</a>
                 <input class="hidden" value="<%= bookmarks[i].id %>" />
                 <% } %>
             </li>

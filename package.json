@@ -23,6 +23,7 @@
     "loopback-connector-mongodb": "^1.13.3",
     "loopback-datasource-juggler": "^2.39.0",
     "loopback-passport": "^1.0.2",
+    "moment": "^2.11.2",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "qs": "^6.1.0",

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Bookmark</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/home.css">
+    <script src="//cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+    <script src="/javascripts/home.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">My bookmark</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/">Home</a></li>
+        <% if(user) { %>
+        <li><a href="/bookmarks/new">New Bookmark</a></li>
+        <li><a href="/logout">Logout</a></li>
+        <% } else { %>
+        <li><a href="/login">Login</a></li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<main class="container">
+
+  <!-- Bookmark List -->
+  <% for (var i = 0; i < bookmarks.length; i++) { %>
+  <article class="bookmark">
+
+    <!-- Bookmark Header, it contains date and author information -->
+    <header>
+      <span class="date"><%= bookmarks[i].createTime %></span>
+      <span class="author"><%= bookmarks[i].user.username %></span>
+    </header>
+
+    <!-- Bookmark Body, it contains title and status -->
+    <section class="link">
+      <a href="<%= bookmarks[i].link %>"><%= bookmarks[i].title %></a>
+      <% if (bookmarks[i].private == false) { %>
+      <span class="label label-warning span">Public</span>
+      <% } else { %>
+      <span class="label label-success span">Private</span>
+      <% } %>
+    </section>
+
+    <!-- Bookmark Body, it contains user action -->
+    <section class="actions">
+      <% if(bookmarks[i].private == true || bookmarks[i].owner == (user ? user.id : null) ) { %>
+      <a class="btn btn-danger option" data-toggle="modal" data-target="#confirm" onclick="bookmarkConfirm(event)">Delete</a>
+      <a href="/bookmarks/<%= bookmarks[i].id %>/edit" class="btn btn-success option">Edit</a>
+      <input class="hidden" value="<%= bookmarks[i].id %>" />
+      <% } %>
+    </section>
+
+    <!-- Bookmark Footer, it contains bookmarks' details -->
+    <footer>
+      <a>Star<span>0</span></a>
+      <a>Read<span>0</span></a>
+      <a>Comment<span>0</span></a>
+    </footer>
+
+  </article>
+  <% } %>
+
+</main>
+
+    <script src="/javascripts/bootstrap.min.js"></script>
+</body>
+</html>
