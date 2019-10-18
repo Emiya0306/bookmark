@@ -1,0 +1,3 @@
+[submodule "lj-util"]
+	path = lj-util
+	url = https://github.com/Emiya0306/lj-util
