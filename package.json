@@ -20,7 +20,7 @@
     "loopback-boot": "^2.6.5",
     "loopback-component-explorer": "^2.1.0",
     "loopback-component-passport": "^2.0.0",
-    "loopback-connector-mongodb": "^1.13.3",
+    "loopback-connector-mongodb": "^5.2.0",
     "loopback-datasource-juggler": "^2.39.0",
     "loopback-passport": "^1.0.2",
     "moment": "^2.11.2",
